@@ -42,7 +42,7 @@ func NewPacket(hwtype uint16,  protype uint16, hwsize uint8, protsize uint8, opc
 	}
 }
 
-func NewPacketIPv4(senderMac net.HardwareAddr, destMac net.HardwareAddr, senderIP net.IP, targetIP net.IP) *ArpIPv4 {
+func NewARPIPv4(senderMac net.HardwareAddr, destMac net.HardwareAddr, senderIP net.IP, targetIP net.IP) *ArpIPv4 {
 	return &ArpIPv4{
 		senderMAC: senderMac,
 		targetMAC: destMac, 
@@ -51,7 +51,7 @@ func NewPacketIPv4(senderMac net.HardwareAddr, destMac net.HardwareAddr, senderI
 	}
 }
 
-func NewArpPacket(b []byte) *ArpPacket {
+func ArpPacketFromBytes(b []byte) *ArpPacket {
 	return &ArpPacket{
 		hardwareType: binary.BigEndian.Uint16(b[0:2]),
 		protocolType: binary.BigEndian.Uint16(b[2:4]),
@@ -62,7 +62,7 @@ func NewArpPacket(b []byte) *ArpPacket {
 	}
 }
 
-func NewARPIPv4(b []byte) *ArpIPv4 {
+func ARPIPv4FromBytes(b []byte) *ArpIPv4 {
 	return &ArpIPv4{
 		senderMAC: b[0:6],
 		senderIP: binary.BigEndian.Uint32(b[6:10]),

@@ -91,7 +91,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	arpIPv4 := arp.NewPacketIPv4(netif.HardwareAddr, destMac, hostIP, net.ParseIP(*targetIPF))
+	arpIPv4 := arp.NewARPIPv4(netif.HardwareAddr, destMac, hostIP, net.ParseIP(*targetIPF))
 	arpHdr := arp.NewPacket(arp.ArpEthernet, syscall.ETH_P_IP, arp.HardwareSize, arp.ProtocolSize, arp.ArpRequest, arpIPv4.Bytes())
 	ethHdr := ethernet.NewFrame(destMac, netif.HardwareAddr, syscall.ETH_P_ARP, arpHdr.Bytes())
 
@@ -137,7 +137,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	senderMAC := arp.NewARPIPv4(arp.NewArpPacket(ethernet.FromBytes(buf[:n]).Payload()).Payload()).SenderMac()
+	senderMAC := arp.ARPIPv4FromBytes(arp.ArpPacketFromBytes(ethernet.FromBytes(buf[:n]).Payload()).Payload()).SenderMac()
 
 	fmt.Println(senderMAC.String())
 }
