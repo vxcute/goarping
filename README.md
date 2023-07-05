@@ -1,6 +1,6 @@
 # goarping
 
-arping equivalent but in Go ! 
+arping equivalent but in Go !, currently supports IPv4 only though ... its just a learning project anyways use arping lol.
 
 ```
 sudo ./goarping 
